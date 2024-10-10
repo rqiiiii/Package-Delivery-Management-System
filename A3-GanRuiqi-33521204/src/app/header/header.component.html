@@ -31,7 +31,6 @@
         .navbar .nav-link {
             color: #000000;
         }
-
     </style>
 </head>
 
@@ -52,30 +51,34 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" routerLink="/add-driver">Add Driver</a>
+                        <!-- Dropdown for Drivers -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" id="driversDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Drivers
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="driversDropdown">
+                                <li><a class="dropdown-item" routerLink="/add-driver">Add Driver</a></li>
+                                <li><a class="dropdown-item" routerLink="/list-drivers">List Drivers</a></li>
+                                <li><a class="dropdown-item" routerLink="/delete-driver">Delete Driver</a></li>
+                                <li><a class="dropdown-item" routerLink="/update-driver">Update Driver</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" routerLink="/list-drivers">List Drivers</a>
+
+                        <!-- Dropdown for Packages -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" id="packagesDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Packages
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="packagesDropdown">
+                                <li><a class="dropdown-item" routerLink="/add-package">Add Package</a></li>
+                                <li><a class="dropdown-item" routerLink="/list-packages">List Packages</a></li>
+                                <li><a class="dropdown-item" routerLink="/delete-package">Delete Package</a></li>
+                                <li><a class="dropdown-item" routerLink="/update-package">Update Package</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" routerLink="/delete-driver">Delete Driver</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" routerLink="/update-driver">Update Driver</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" routerLink="/add-package">Add Package</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" routerLink="/list-packages">List Packages</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" routerLink="/delete-package">Delete Package</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" routerLink="/update-package">Update Package</a>
-                        </li>
+                        <!-- Statistics Link -->
                         <li class="nav-item">
                             <a class="nav-link text-white" routerLink="/statistics">Statistics</a>
                         </li>

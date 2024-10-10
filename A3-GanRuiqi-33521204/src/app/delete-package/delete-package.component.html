@@ -1,0 +1,118 @@
+<style>
+    .container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    padding-bottom: 60px;
+    /* Add some padding to avoid overlap with footer */
+    overflow-y: auto;
+    /* Allows scrolling when content is too long */
+}
+</style>
+
+<div class="container mt-4">
+<h2 class="my-4"><b>Packages</b></h2>
+
+@if(packageDB.length === 0){
+<h3>We have no packages at the moment</h3>
+}@else{
+
+<table class="table table-striped">
+<thead>
+<tr>
+    <th>MongoDB ID</th>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Weight (g)</th>
+    <th>Destination</th>
+    <th>Description</th>
+    <th>Created At</th>
+    <th>Is Allocated</th>
+    <th>Driver ID</th>
+    <th>Delete</th>
+    <th>Driver</th>
+
+</tr>
+</thead>
+<tbody>
+@for(package of packageDB;track $index){
+<tr>
+    <td>{{package._id}}</td>
+    <td>{{package.packageId }}</td>
+    <td>{{package.packageTitle}}</td>
+    <td>{{package.packageWeight | kgtog}}</td>
+    <td>{{package.packageDestination}}</td>
+    <td>{{package.packageDescription}}</td>
+    <td>{{package.packageCreatedAt}}</td>
+    <td>{{ package.packageIsAllocated}}</td>
+    <td>  
+        @if(package.driverId){
+            {{package.driverId.driverId}}
+        }
+        @else{
+            Deleted
+        } 
+    </td>
+    <td> 
+        <button (click)="onDeletePackage(package._id)" class="btn btn-danger">X</button>
+    </td>
+    <td>
+        <button (click)="onFindDriver(package._id)" class="btn btn-danger">?</button>
+    </td>
+</tr>
+}
+</tbody>
+</table>
+}
+
+
+
+
+
+@if(driverFetched){
+    @if(driverData.length != 0){
+      <div class="container mt-4">
+          <h2 class="my-4"><b>Drivers</b></h2>
+      <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Mongodb ID</th>
+            <th>Driver ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Licence</th>
+            <th>Is Active</th>
+            <th>Created At</th>
+          </tr>
+          </thead>
+          <tbody>
+      @for(driver of driverData;track $index){
+          <tr>
+            <td>{{driver._id}}</td>
+            <td>{{driver.driverId }}</td>
+            <td>{{driver.driverName | upper}}</td>
+            <td>{{driver.driverDepartment}}</td>
+            <td>{{driver.driverLicence}}</td>
+            <td>{{driver.driverIsActive}}</td>
+            <td>{{driver.driverCreatedAt}}</td>     
+          </tr>
+      }
+          </tbody>
+          </table>
+    
+    </div>
+  }@else{
+      <div class="container mt-4">
+          <h2 class="my-4"><b>No driver found</b></h2>
+      </div>
+  }
+  }
+
+
+
+
+

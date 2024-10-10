@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <!-- Form Section for Adding Package -->
+    <div class="form-section">
+        <h2><b>Add New Package</b></h2>
+        <!-- <form method="POST" action="/33521204/ruiqi/package/new"> -->
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="packageTitle" name="packageTitle" [(ngModel)]="package.packageTitle" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="float" id="packageWeight" name="packageWeight" [(ngModel)]="package.packageWeight" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="packageDestination" name="packageDestination" [(ngModel)]="package.packageDestination" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="packageDescription" name="packageDescription" [(ngModel)]="package.packageDescription" class="form-control">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" id="packageIsAllocated" name="packageIsAllocated" [(ngModel)]="package.packageIsAllocated" class="form-check-input">
+                <label for="packageIsAllocated" class="form-check-label">Is Allocated</label>
+            </div>
+
+            <div class="form-group">          
+                <label for="driver">Select Driver:</label><br>
+                <select id="driver" [(ngModel)]="selectedDriverId" class="form-select" required>
+                  <option value="">Select a driver</option> 
+                  <option *ngFor="let driver of driverDB; let i = index" [value]="driver._id">
+                    {{ driver.driverName }}
+                  </option>
+                </select>
+              </div>
+        <button type="submit" class="btn btn-primary" (click)="addPackage()">Add Package</button>
+
+    </div>
+</div>
+
+

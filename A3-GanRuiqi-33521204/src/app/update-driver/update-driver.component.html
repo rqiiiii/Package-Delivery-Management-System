@@ -1,0 +1,19 @@
+<div class="container mt-4">
+    <h2 class="my-4"><b>Update Driver</b></h2>
+    
+    <label for="licence" class="mt-3">Driver ID:</label>
+    <input type="text" [(ngModel)]="driverId" id="licence" class="form-control" required>
+  
+    <label for="licence" class="mt-3">New Licence:</label>
+    <input type="text" [(ngModel)]="updatedDriver.licence" id="licence" class="form-control" required>
+  
+    <label for="department" class="mt-3">New Department:</label>
+    <input type="text" [(ngModel)]="updatedDriver.department" id="department" class="form-control" required>
+  
+  
+    <button (click)="onUpdateDriver(driverId,updatedDriver)" class="btn btn-primary mt-2">Update Driver</button>
+  </div>
+  
+  
+    
+  

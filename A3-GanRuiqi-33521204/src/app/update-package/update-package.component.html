@@ -1,0 +1,16 @@
+<div class="container mt-4">
+    <h2 class="my-4"><b>Update Package</b></h2>
+    
+    <label for="id" class="mt-3">Package ID:</label>
+    <input type="text" [(ngModel)]="packageId" id="licence" class="form-control" required>
+  
+    <label for="destination" class="mt-3">New Destination:</label>
+    <input type="text" [(ngModel)]="updatedPackage.destination" id="destination" class="form-control" required>
+
+  
+    <button (click)="onUpdatePackage(packageId,updatedPackage)" class="btn btn-primary mt-2">Update Package</button>
+  </div>
+  
+  
+    
+  

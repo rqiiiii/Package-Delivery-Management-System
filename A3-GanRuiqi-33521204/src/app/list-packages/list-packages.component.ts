@@ -30,10 +30,6 @@ export class ListPackagesComponent {
     });
   }
 
-    // onFindDriver(){
-    //   this.db.getDrivers().subscribe();
-    // }
-
     ngOnInit() {
     this.db.getPackages().subscribe((packages: any) => {
       this.packageDB = packages; 

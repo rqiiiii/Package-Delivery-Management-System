@@ -1,0 +1,110 @@
+<p>translate works!</p>
+<style>
+    .container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    padding-bottom: 60px;
+    /* Add some padding to avoid overlap with footer */
+    overflow-y: auto;
+    /* Allows scrolling when content is too long */
+}
+</style>
+
+<div class="container mt-4">
+<h2 class="my-4"><b>Translate</b></h2>
+
+@if(packageDB.length === 0){
+    <h3>We have no packages at the moment</h3>
+}
+@else
+{
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>MongoDB ID</th>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Weight (kg)</th>
+        <th>Destination</th>
+        <th>Description</th>
+        <th>Translate</th>
+
+    </tr>
+    </thead>
+    <tbody>
+        @for(package of packageDB;track $index)
+        {
+        <tr>
+            <td>{{package._id}}</td>
+            <td>{{package.packageId }}</td>
+            <td>{{package.packageTitle}}</td>
+            <td>{{package.packageWeight}}</td>
+            <td>{{package.packageDestination}}</td>
+            <td>{{package.packageDescription}}</td>
+            <td> 
+                <button (click)="onTranslate(package.packageDescription)" class="btn btn-success">T</button>
+            </td>
+        </tr>
+        }
+</tbody>
+</table>
+}
+
+
+<div class="form-group">
+    <label for="targetLanguage"><b>Target Language</b></label>
+    <select id="targetLanguage" name="targetLanguage" [(ngModel)]="targetLanguage" class="form-control" required>
+        <option value="" disabled>Select a Language</option>
+        <option value="es">Spanish</option>
+        <option value="zh">Chinese</option>
+        <option value="ko">Korean</option>
+    </select>
+</div>
+
+
+<!-- @if (translated){
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Text</th>
+        <th>Target Language</th>
+        <th>Translation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{translatedData.original}}</td>
+        <td>{{translatedData.targetLanguage}}</td>
+        <td>{{translatedData.translation}}</td>
+    </tr>
+    </tbody>
+} -->
+<div *ngIf="translated">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Text</th>
+          <th>Target Language</th>
+          <th>Translation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through translatedData array -->
+        <tr *ngFor="let data of translatedData">
+          <td>{{data.original}}</td>
+          <td>{{data.targetLanguage}}</td>
+          <td>{{data.translation}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+
+
+

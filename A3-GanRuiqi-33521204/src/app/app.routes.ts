@@ -10,6 +10,7 @@ import { UpdatePackageComponent } from './update-package/update-package.componen
 import { StatisticsComponent } from './statistics/statistics.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InvalidDataComponent } from './invalid-data/invalid-data.component';
+import { TranslateComponent } from './translate/translate.component';
 
 export const routes: Routes = [
     {path:"add-driver",component:AddDriverComponent},
@@ -21,6 +22,7 @@ export const routes: Routes = [
     {path:"delete-package",component:DeletePackageComponent},
     {path:"update-package",component:UpdatePackageComponent},
     {path:"statistics",component:StatisticsComponent},
+    {path:"translate",component:TranslateComponent},
     // { path: "", redirectTo: "/list-drivers", pathMatch: "full" },
     { path: '**', component: PageNotFoundComponent },
     {path:"invalid-data",component:InvalidDataComponent}

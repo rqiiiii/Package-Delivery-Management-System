@@ -55,91 +55,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DatabaseService {
-  
-  // private driverList = new BehaviorSubject<any[]>([]);
-  // private packageList = new BehaviorSubject<any[]>([]);
-
-  // constructor(private http: HttpClient, private router: Router) { }
-
-  //   createDriver(driver: any) {
-  //   return this.http.post(API_URL + '/drivers', driver, httpOptions).pipe(
-  //     catchError((error) => {
-  //       // Check if the error status is 400 (Bad Request)
-  //       if (error.status === 400) {
-  //         this.router.navigate(['/invalid-data']); // Redirect to invalid data component
-  //       }
-  //       return throwError(error); // Rethrow the error for further handling
-  //     })
-  //   );
-  // }
-
-  // createPackage(packages: any) {
-  //   console.log("hi1")
-
-  //   return this.http.post(API_URL + '/packages', packages, httpOptions).pipe(
-      
-  //     catchError((error) => {
-  //       // Check if the error status is 400 (Bad Request)
-  //       if (error.status === 400) {
-  //         this.router.navigate(['/invalid-data']); // Redirect to invalid data component
-  //       }
-  //       return throwError(error); // Rethrow the error for further handling
-  //     })
-  //   );
-  // }
-
-  // // Method to get the list of drivers and update BehaviorSubject
-  // getDrivers() {
-  //   return this.http.get<any[]>(API_URL + '/drivers').pipe(
-  //     tap(drivers => this.driverList.next(drivers)),  // Update the BehaviorSubject with new drivers
-  //     catchError(error => {
-  //       console.error('Error fetching drivers', error);
-  //       this.router.navigate(['/invalid-data']);
-  //       throw error;
-  //     })
-  //   );
-  // }
-
-  // getPackage() {
-  //   return this.http.get<any[]>(API_URL + '/packages').pipe(
-  //     tap(packages => this.packageList.next(packages)),  // Update the BehaviorSubject with new drivers
-  //     catchError(error => {
-  //       console.error('Error fetching drivers', error);
-  //       this.router.navigate(['/invalid-data']);
-  //       throw error;
-  //     })
-  //   );
-  // }
-
-  // // Expose the driver list as an Observable
-  // getDriverList() {
-  //   return this.driverList.asObservable();
-  // }
-
-  //   // Expose the driver list as an Observable
-  //   getPackageList() {
-  //     return this.packageList.asObservable();
-  //   }
-
-  // // Delete driver and update the list
-  // deleteDriver(driverId: string) {
-  //   return this.http.delete(API_URL + '/drivers/' + driverId, httpOptions).pipe(
-  //     tap(() => {
-  //       // Refresh the list after a driver is deleted
-  //       this.getDrivers().subscribe(); // Ensure the driver list is updated
-  //     }),
-  //     catchError(error => {
-  //       console.error('Error deleting driver', error);
-  //       this.router.navigate(['/invalid-data']);
-  //       throw error;
-  //     })
-  //   );
-  // }
-
-  // updateDriver(driverId:string,data:any){
-  //   console.log(data,"wahha")
-  //   return this.http.put(API_URL + "/drivers/"+driverId, data ,httpOptions)
-  // }
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -230,8 +145,17 @@ export class DatabaseService {
   getStatistics() {
     return this.http.get(API_URL+'/stats'); // Adjust the endpoint accordingly
   }
-  // incrementOperationCount(operation: string): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/api/incrementOperation`, { operation });
-  // }
+
+  getTranslation(data:any){
+    return this.http.post(API_URL + '/translate', data, httpOptions).pipe(
+      catchError(error => {
+        console.error('Error during translation', error);
+        this.router.navigate(['/invalid-data']);
+        return throwError(error);
+      })
+    );
+  }
+
+  
 }
 

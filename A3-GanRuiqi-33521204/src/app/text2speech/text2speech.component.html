@@ -1,0 +1,64 @@
+<style>
+    .container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    padding-bottom: 60px;
+    /* Add some padding to avoid overlap with footer */
+    overflow-y: auto;
+    /* Allows scrolling when content is too long */
+}
+</style>
+
+<div class="container mt-4">
+<h2 class="my-4"><b>Text to Speech Converter</b></h2>
+
+@if(driverDB.length === 0){
+<h3>We have no drivers at the moment</h3>
+}@else{
+
+<table class="table table-striped">
+<thead>
+<tr>
+    <th>Mongodb ID</th>
+    <th>Driver ID</th>
+    <th>Name</th>
+    <th>Department</th>
+    <th>Licence</th>
+    <th>Speech</th>
+</tr>
+</thead>
+<tbody>
+@for(driver of driverDB;track $index){
+<tr>
+    <td>{{driver._id}}</td>
+    <td>{{driver.driverId }}</td>
+    <td>{{driver.driverName | upper}}</td>
+    <td>{{driver.driverDepartment}}</td>
+    <td>{{driver.driverLicence}}</td>
+    <td>
+        <button (click)="onSpeech(driver.driverLicence)" class="btn btn-success">S</button>
+    </td>
+</tr>
+}
+</tbody>
+</table>
+}
+
+<b>Text to Convert</b>
+{{text}}
+@if(speechUrl){
+  <h3>Speech Output:</h3>
+  <p>{{ speechUrl }}</p>
+  <!-- Audio player to play the MP3 file -->
+  <audio controls autoplay id = "speech">
+    <source id = "speech2" src="{{speechUrl}}" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+}
+  
+

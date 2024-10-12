@@ -96,12 +96,22 @@ module.exports={
      * @returns {Promise<void>} Sends a JSON response containing the list of all packages.
      */
     getAllPackage: async function(req,res){
-        let packages = await Package.find({}).populate("driverId");
-
-        await incrementOperationCount('Retrieve');
-        res.status(200).json(packages);
+        try {
+            // Attempt to find all packages and populate the driverId field
+            let packages = await Package.find({}).populate("driverId");
+    
+            // Increment the operation count for retrieval
+            await incrementOperationCount('Retrieve');
+    
+            // Send a success response with the retrieved packages
+            res.status(200).json(packages);
+        } catch (error) {
+            console.error("Error retrieving packages:", error);
+            // Send a server error response
+            res.status(500).json({ message: "Error retrieving packages", error: error.message });
+        }
     },
-
+    
     /**
      * Removes a package by its ID from the database.
      * 
@@ -117,18 +127,37 @@ module.exports={
      * Value: package mongodb ID
      */
     removePackageById: async function (req, res) {
-        const package = await Package.findByIdAndDelete(req.params.id);
-        await incrementOperationCount('Delete');
-        res.json(package);
-
+        try {
+            const package = await Package.findByIdAndDelete(req.params.id);
+            
+            if (!package) {
+                return res.status(404).json({ message: "Package not found" });
+            }
+    
+            await incrementOperationCount('Delete');
+            
+            res.status(200).json(package);
+        } catch (error) {
+            console.error("Error removing package:", error);
+            res.status(500).json({ message: "Error removing package", error: error.message });
+        }
     },
 
     findPackageById: async function (req, res) {
-        const package = await Package.findById(req.params.id);
-        res.json(package);
-
+        try {
+            const package = await Package.findById(req.params.id);
+            
+            if (!package) {
+                return res.status(404).json({ message: "Package not found" });
+            }
+    
+            res.status(200).json(package);
+        } catch (error) {
+            console.error("Error finding package:", error);
+            res.status(500).json({ message: "Error finding package", error: error.message });
+        }
     },
-
+    
     /**
      * Updates the destination of a package based on its ID.
      * 

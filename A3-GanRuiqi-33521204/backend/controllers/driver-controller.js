@@ -92,11 +92,16 @@ module.exports={
      * @returns {Promise<void>} Responds with a list of all drivers.
      */
     getAllDriver: async function(req,res){
-        let drivers = await Driver.find({}).populate("assigned_packages");
-
-        await incrementOperationCount('Retrieve');
-
-        res.status(200).json(drivers);
+        try {
+            let drivers = await Driver.find({}).populate("assigned_packages");
+    
+            await incrementOperationCount('Retrieve');
+    
+            res.status(200).json(drivers);
+        } catch (error) {
+            console.error("Error retrieving drivers:", error);
+            res.status(500).json({ message: "Error retrieving drivers", error: error.message });
+        }
     },
 
     /**
@@ -113,12 +118,20 @@ module.exports={
      * value: driver mongodb ID
      */
     removeDriverById: async function (req, res) {
-        const driver = await Driver.findByIdAndDelete(req.params.id);
-        await incrementOperationCount('Delete');
-        res.json(driver);
-
-
-        // res.status(200).json(result);
+        try {
+            const driver = await Driver.findByIdAndDelete(req.params.id);
+    
+            if (!driver) {
+                return res.status(404).json({ message: "Driver not found" });
+            }
+    
+            await incrementOperationCount('Delete');
+    
+            res.status(200).json(driver);
+        } catch (error) {
+            console.error("Error removing driver:", error);
+            res.status(500).json({ message: "Error removing driver", error: error.message });
+        }
     },
 
     /**

@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <!-- Form Section for Adding Driver -->
+    <div class="form-section">
+        <h2><b>Signup</b></h2>
+        <form method="POST" action="/33521204/ruiqi/signup">
+            <div class="form-group">
+               <label for="username">Username:</label>
+               <input type="text" id="username" name="username" [(ngModel)]="signupObj.username" class="form-control" required>
+            </div>
+            <div class="form-group">
+               <label for="password">Password:</label>
+               <input type="text" id="password" name="password" [(ngModel)]="signupObj.password" class="form-control" required><br>
+            </div>
+            <div class="form-group">
+             <label for="confirmPassword">Confirm password:</label>
+             <input type="text" id="confirmPassword" name="confirmPassword" [(ngModel)]="signupObj.confirmPassword" class="form-control" required><br>
+          </div>
+           <div>
+               <button type="submit"(click)="onSignup()" class="btn btn-primary mt-3">signup</button>
+           </div>
+           <div>
+               <a href="/33521204/ruiqi/login" class="btn btn-secondary">login</a>
+           </div>
+        </form>
+    </div>
+</div>

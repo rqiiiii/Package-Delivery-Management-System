@@ -146,16 +146,14 @@ export class DatabaseService {
     return this.http.get(API_URL+'/stats'); // Adjust the endpoint accordingly
   }
 
-  getTranslation(data:any){
-    return this.http.post(API_URL + '/translate', data, httpOptions).pipe(
-      catchError(error => {
-        console.error('Error during translation', error);
-        this.router.navigate(['/invalid-data']);
-        return throwError(error);
-      })
-    );
+
+  login(loginObj:any){
+    return this.http.post(API_URL+"/login",loginObj,httpOptions)
   }
 
-  
+  signup(signupObj:any){
+    return this.http.post(API_URL+"/signup",signupObj,httpOptions)
+  }
+
 }
 

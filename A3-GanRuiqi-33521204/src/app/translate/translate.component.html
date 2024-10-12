@@ -1,4 +1,3 @@
-<p>translate works!</p>
 <style>
     .container {
     flex-grow: 1;
@@ -67,25 +66,7 @@
     </select>
 </div>
 
-
-<!-- @if (translated){
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Text</th>
-        <th>Target Language</th>
-        <th>Translation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>{{translatedData.original}}</td>
-        <td>{{translatedData.targetLanguage}}</td>
-        <td>{{translatedData.translation}}</td>
-    </tr>
-    </tbody>
-} -->
-<div *ngIf="translated">
+    <div *ngIf="translatedData.length > 0" class="mt-4">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -96,15 +77,15 @@
       </thead>
       <tbody>
         <!-- Loop through translatedData array -->
-        <tr *ngFor="let data of translatedData">
-          <td>{{data.original}}</td>
-          <td>{{data.targetLanguage}}</td>
-          <td>{{data.translation}}</td>
+        <tr *ngFor="let translated of translatedData">
+          <td>{{ translated.original }}</td>
+          <td>{{ translated.targetLanguage }}</td>
+          <td>{{ translated.translation }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+</div>
 
 
 

@@ -4,6 +4,7 @@ import { DatabaseService } from '../database.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { io } from 'socket.io-client';
 
 
 @Component({
@@ -14,21 +15,20 @@ import { CommonModule } from '@angular/common';
   styleUrl: './translate.component.css'
 })
 export class TranslateComponent {
-  
   packageDB: Package[] = [];
   driverData:any =[];
   targetLanguage:any =""
-  data:any 
+  data:any  = []
   translatedData: any =[]
-  translated:boolean = false;
+  socket: any;
 
-
-  constructor(private db: DatabaseService, private router: Router) {}
-
-
-    // onFindDriver(){
-    //   this.db.getDrivers().subscribe();
-    // }
+  constructor(private db: DatabaseService, private router: Router) {
+    this.socket = io();  // Initialize socket connection
+    this.socket.on('translateServerEvent', (translatedData: any) => {
+      this.translatedData.push(translatedData);  // Update response when event is received
+      console.log(this.translatedData,"data");  // Log the response from the server
+    });
+  }
 
     ngOnInit() {
     this.db.getPackages().subscribe((packages: any) => {
@@ -38,26 +38,17 @@ export class TranslateComponent {
     this.db.getPackages().subscribe();
     }
 
-    onTranslate(description:any){
-      if (this.targetLanguage) {
-        const data = {
-          description,
-          targetLanguage: this.targetLanguage
-        };
-        this.data =data
-        console.log(this.data,"data")
-        this.db.getTranslation(this.data).subscribe((response:any) => {
-          console.log('Translation result:', response);
-          this.translatedData.push(response);
-          this.translated = true;
-        }, (error) => {
-          console.error('Translation failed', error);
-        });
-      } else {
-        alert('Please select a target language.');
-      }
-    
-    }
+  onTranslate(description:any) {
+    console.log(description,"des")
+    console.log(this.targetLanguage)
+    const data = {
+              description,
+              targetLanguage: this.targetLanguage
+            };
+    this.data=data
+    console.log(this.data,"msg");  // Log the message to be sent
+    this.socket.emit('translateEvent', this.data);  // Emit the message to the server
+  }
 
        
 

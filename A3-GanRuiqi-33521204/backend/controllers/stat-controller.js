@@ -10,10 +10,19 @@ module.exports={
      * @param {Object} res - Express response object.
      */
     getAllStats: async function(req,res){
-        const doc = await stats.get();
-        const data = doc.data();
-        res.status(200).json({
-            data
-        });
+        try {
+            // Attempt to retrieve the statistics document
+            const doc = await stats.get();
+            const data = doc.data();
+    
+            // Send a success response with the statistics data
+            res.status(200).json({
+                data
+            });
+        } catch (error) {
+            console.error("Error retrieving statistics:", error);
+            // Send a server error response
+            res.status(500).json({ message: "Error retrieving statistics", error: error.message });
+        }
     }
 }

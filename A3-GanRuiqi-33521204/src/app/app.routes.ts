@@ -11,19 +11,31 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InvalidDataComponent } from './invalid-data/invalid-data.component';
 import { TranslateComponent } from './translate/translate.component';
+import { Text2speechComponent } from './text2speech/text2speech.component';
+import { AiComponent } from './ai/ai.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { authGuard } from './auth.guard';
+import { SignupComponent } from './signup/signup.component';
 
 export const routes: Routes = [
-    {path:"add-driver",component:AddDriverComponent},
-    {path:"list-drivers",component:ListDriversComponent},
-    {path:"delete-driver",component:DeleteDriverComponent},
-    {path:"update-driver",component:UpdateDriverComponent},
-    {path:"add-package",component:AddPackageComponent},
-    {path:"list-packages",component:ListPackagesComponent},
-    {path:"delete-package",component:DeletePackageComponent},
-    {path:"update-package",component:UpdatePackageComponent},
-    {path:"statistics",component:StatisticsComponent},
-    {path:"translate",component:TranslateComponent},
+    // {path:"",redirectTo:"login",pathMatch: "full"},
+    {path:"",component:DashboardComponent},
+    {path:"login",component:LoginComponent},
+    {path:"signup",component:SignupComponent},
+    {path:"add-driver",component:AddDriverComponent,canActivate:[authGuard]},
+    {path:"list-drivers",component:ListDriversComponent,canActivate:[authGuard]},
+    {path:"delete-driver",component:DeleteDriverComponent,canActivate:[authGuard]},
+    {path:"update-driver",component:UpdateDriverComponent,canActivate:[authGuard]},
+    {path:"add-package",component:AddPackageComponent,canActivate:[authGuard]},
+    {path:"list-packages",component:ListPackagesComponent,canActivate:[authGuard]},
+    {path:"delete-package",component:DeletePackageComponent,canActivate:[authGuard]},
+    {path:"update-package",component:UpdatePackageComponent,canActivate:[authGuard]},
+    {path:"statistics",component:StatisticsComponent,canActivate:[authGuard]},
+    {path:"translate",component:TranslateComponent,canActivate:[authGuard]},
+    {path:"text2speech",component:Text2speechComponent,canActivate:[authGuard]},
+    {path:"ai",component:AiComponent,canActivate:[authGuard]},
     // { path: "", redirectTo: "/list-drivers", pathMatch: "full" },
+    {path:"invalid-data",component:InvalidDataComponent},
     { path: '**', component: PageNotFoundComponent },
-    {path:"invalid-data",component:InvalidDataComponent}
 ];

@@ -29,8 +29,9 @@ export class LoginComponent {
     this.db.login(this.loginObj).subscribe((response: any) => {
       if (response.token) {  // Assuming the server sends back a JWT token
         localStorage.setItem("jwt", response.token);  // Store the token in localStorage
-        this.router.navigateByUrl("/add-driver");  // Redirect to a protected page
+        this.router.navigate([""]);  // Redirect to a protected page
       } else {
+        this.router.navigate(["invalid-data"])
         alert(response.message);  // Handle login failure
       }
     });

@@ -15,55 +15,60 @@ import { CommonModule } from '@angular/common';
   templateUrl: './text2speech.component.html',
   styleUrl: './text2speech.component.css'
 })
+
 export class Text2speechComponent {
   socket: any;
-  driverDB:any =[];
-  data:any;
-  speechUrl:any;
-  text:any;
-  speak:boolean =false;
-
+  driverDB: any = [];
+  data: any;
+  speechUrl: any;
+  text: any;
 
   constructor(private db: DatabaseService, private router: Router) {
     this.socket = io();  // Initialize socket connection
     this.socket.on('t2sServerEvent', (data: any) => {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.speechUrl = data.file; // Set the speech file path
         this.text = data.text; // Set the original text
-        this.ngOnInit();
+        this.ngOnInit(); 
         this.playAudio(this.speechUrl);
-        console.log(this.speechUrl,this.text,"vvwbuoqwe")
-      },300);
+      }, 300);
     });
   }
 
-  playAudio(data:any){
-    const audioElement =document.getElementById("speech") as HTMLAudioElement;
+  ngOnInit() {
+    this.db.getDrivers().subscribe((drivers: any) => {
+      this.driverDB = drivers; 
+    });
+  }
+
+  playAudio(data: any) {
+    const audioElement = document.getElementById("speech") as HTMLAudioElement;
     const audioSource = document.getElementById("speech2") as HTMLSourceElement;
-    audioSource.src ='';
-    setTimeout(()=>{
-      audioElement.pause();
-      audioSource.src =data;
-      audioElement.load();
-    },50)
+
+    if (audioElement && audioSource) {
+      audioSource.src = ''; // Clear existing source
+      setTimeout(() => {
+        audioElement.pause(); // Pause any currently playing audio
+        audioSource.src = data; // Set new source
+        audioElement.load(); // Load new audio
+        audioElement.play().catch(error => {
+          console.error('Error playing audio:', error);
+        });
+      }, 50);
+    }
   }
 
-    ngOnInit() {
-      this.db.getDrivers().subscribe((drivers: any) => {
-      this.driverDB = drivers; // Assign the fetched drivers to driverDB
-    })
+  onSpeech(text: any) {
+    this.text = text;
+    const data = {
+      text,
+      file: this.speechUrl
+    };
+    this.data = data;
+    this.socket.emit('t2sEvent', this.data);
   }
 
-    onSpeech(text:any){
-      this.text =text
-      const data = {
-                text,
-                file: this.speechUrl
-              };
-      this.data=data;
-      this.socket.emit('t2sEvent', this.data);
-      }
 
-  }
+}
 
 

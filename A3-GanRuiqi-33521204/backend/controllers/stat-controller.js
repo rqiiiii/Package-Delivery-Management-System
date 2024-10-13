@@ -24,5 +24,5 @@ module.exports={
             // Send a server error response
             res.status(500).json({ message: "Error retrieving statistics", error: error.message });
         }
-    }
+    } 
 }

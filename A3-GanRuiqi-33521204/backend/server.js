@@ -155,8 +155,6 @@ io.on("connection", function(socket) {
   });
 });
 
-
-
 io.on("connection", function(socket) {
     console.log("Ai connection made");
 

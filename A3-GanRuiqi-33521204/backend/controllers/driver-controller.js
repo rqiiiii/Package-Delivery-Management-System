@@ -172,7 +172,7 @@ module.exports={
                 driverLicence: newDriverLicence,
                 driverDepartment: newDriverDepartment
             },
-            { new: true }
+            { new: true , runValidators: true}
             );
 
             if (!updatedDriver) {

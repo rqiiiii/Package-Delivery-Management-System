@@ -188,7 +188,7 @@ module.exports={
                 {
                     packageDestination:newDestination
                 },
-                {new: true}
+                {new: true,runValidators:true}
             );
 
             await incrementOperationCount('Update');

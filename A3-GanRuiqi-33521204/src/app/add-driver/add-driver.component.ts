@@ -17,8 +17,19 @@ export class AddDriverComponent {
   constructor(private db:DatabaseService,private router:Router){}
 
   addDriver(){
-    this.db.createDriver(this.driver).subscribe((data:any)=>{
-      this.router.navigate(['list-drivers'])
-    });
-  }
-}
+    this.db.createDriver(this.driver).subscribe(
+      (data: any) => {
+        // Assuming the backend returns success status or driver data on successful creation
+          this.router.navigate(['list-drivers']);
+        
+      },
+      (error: any) => {
+        // If there is an error (like invalid data), redirect to the invalid-data page
+        if (error.status === 400) {  // Assuming the backend returns a 400 status code for invalid data
+          this.router.navigate(['invalid-data']);
+        } else {
+          console.error("Unexpected error:", error);
+        }
+      }
+    );
+}}

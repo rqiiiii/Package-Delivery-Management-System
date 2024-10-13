@@ -51,6 +51,11 @@ module.exports={
     // Extract the request body
     let obj = req.body;
 
+    // Basic validation logic
+    if (!obj.packageTitle || !obj.packageWeight || !obj.packageDestination || !obj.driverId) {
+        return res.status(400).json({ message: "Invalid input data. Required fields are missing." });
+    }
+
     try {
 
         // Create a new Package instance

@@ -71,6 +71,14 @@ module.exports={
         try {
 
             const driver = await Driver.findById(req.params.id);
+
+            // Check if the driver was found
+            if (!driver) {
+                // Respond with a 400 status if the driver ID does not exist
+                return res.status(400).json({ message: "Driver not found with the given ID." });
+            }
+
+
             res.json(driver);
         } catch (error) {
             console.error("Error finding driver:", error);

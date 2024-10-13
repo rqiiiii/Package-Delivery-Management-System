@@ -20,11 +20,22 @@ export class AddPackageComponent {
 
   constructor(private db:DatabaseService,private router:Router){}
 
-  addPackage(){
+  addPackage() {
     this.package.driverId = this.selectedDriverId;
-    this.db.createPackage(this.package).subscribe((data:any)=>{
-      this.router.navigate(['list-packages'])
-    });
+    this.db.createPackage(this.package).subscribe(
+      (data: any) => {
+        // On success, navigate to list-packages
+        this.router.navigate(['list-packages']);
+      },
+      (error: any) => {
+        // If there is an error (like invalid data), redirect to the invalid-data page
+        if (error.status === 400) {  // Assuming the backend returns a 400 status code for invalid data
+          this.router.navigate(['invalid-data']);
+        } else {
+          console.error("Unexpected error:", error);
+        }
+      }
+    );
   }
 
   ngOnInit() {

@@ -38,7 +38,9 @@ export class ListPackagesComponent {
     this.db.getPackages().subscribe();
     }
 
+
     onFindDriver(packageId: any) {
+      this.driverFetched = true
       this.db.findPackage(packageId).subscribe((data)=>{
         this.driverData= []
 
@@ -47,10 +49,10 @@ export class ListPackagesComponent {
           // Use findDriver instead of findPackage to get driver data
           this.db.findDriver(data.driverId).subscribe((driverData) => {
               this.driverData.push(driverData)
+              console.log(this.driverData)
           }, (error) => {
               console.error('Error fetching driver data:', error);
           });
-          this.driverFetched = true;
       } else {
           console.warn('No driverId found for package:', packageId);
       }

@@ -21,8 +21,11 @@ export class SignupComponent {
   
   onSignup(){
     this.db.signup(this.signupObj).subscribe((response: any) => {
-      
-    });
-    this.router.navigate([""])
+      this.router.navigate(['/login']);
+    }),
+    (error: any) => {
+      // Handle any errors
+      console.error('Signup failed', error);
+    }
   }
 }

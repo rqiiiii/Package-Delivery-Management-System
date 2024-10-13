@@ -20,7 +20,7 @@ import { SignupComponent } from './signup/signup.component';
 
 export const routes: Routes = [
     // {path:"",redirectTo:"login",pathMatch: "full"},
-    {path:"",component:DashboardComponent},
+    {path:"",component:DashboardComponent,canActivate:[authGuard]},
     {path:"login",component:LoginComponent},
     {path:"signup",component:SignupComponent},
     {path:"add-driver",component:AddDriverComponent,canActivate:[authGuard]},

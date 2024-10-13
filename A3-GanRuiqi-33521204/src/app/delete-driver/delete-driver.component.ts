@@ -31,26 +31,22 @@ export class DeleteDriverComponent {
   }
 
     onFindPackage(driverId: any) {
+      this.packagesFetched = true;
       this.db.findDriver(driverId).subscribe((data)=>{
         this.packageData= []
-        console.log(data,"hbadolq")
-        console.log("find package")
 
         const packageIds = data.assigned_packages;
-        console.log(packageIds)
-        
         if (Array.isArray(packageIds) && packageIds.length > 0) {
           // Iterate over each package ID
           packageIds.forEach(packageId => {
             this.db.findPackage(packageId).subscribe(
               (packageData) => {
-                this.packageData.push(packageData); // Store each package data in the array
+                this.packageData.push(packageData); 
                 console.log(packageData, "Package data for ID:", packageId);
               }, (error) => {
                   console.error(`Error fetching package with ID ${packageId}`, error);
               });
           });
-          this.packagesFetched = true;
       } else {
           console.log("No assigned packages found for this driver.");
       }

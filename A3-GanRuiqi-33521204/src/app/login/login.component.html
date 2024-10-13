@@ -1,6 +1,4 @@
-<p>login works!</p>
 <div class="container mt-4">
-    <!-- Form Section for Adding Driver -->
     <div class="form-section">
         <h2><b>Login</b></h2>
         <form method="POST" action="/33521204/ruiqi/login">
@@ -13,13 +11,11 @@
                <input type="password" id="password" name="password" [(ngModel)]="loginObj.password" class="form-control" required><br>
             </div>
            <div>
-               <button type="submit" class="btn btn-primary" (click)="onLogin()" >Login</button> 
-           </div>
-           <div>
-            <button type="submit" class="btn btn-primary" (click)="onSignup()" >Sign Up</button> 
-        </div>
-           <div>
-            <button type="submit" class="btn btn-primary" (click)="onLogout()" >Log Out</button> 
+               <button type="submit" class="btn btn-primary me-2" (click)="onLogin()" >Login</button> 
+
+            <button type="submit" class="btn btn-primary me-2" (click)="onSignup()" >Sign Up</button> 
+
+            <button type="submit" class="btn btn-danger" (click)="onLogout()" >Log Out</button> 
         </div>
         </form>
     </div>

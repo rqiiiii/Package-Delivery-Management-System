@@ -130,11 +130,6 @@ export class DatabaseService {
 
   findDriver(driverId: string){
     return this.http.get<Driver>(API_URL + '/drivers/' +driverId, httpOptions).pipe(
-      catchError(error => {
-        console.error('Error finding driver', error);
-        this.router.navigate(['/invalid-data']);
-        return throwError(error);
-      })
     );
   }
 
@@ -143,7 +138,7 @@ export class DatabaseService {
   }
 
   getStatistics() {
-    return this.http.get(API_URL+'/stats'); // Adjust the endpoint accordingly
+    return this.http.get(API_URL+'/stats'); 
   }
 
 

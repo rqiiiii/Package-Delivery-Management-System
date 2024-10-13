@@ -17,7 +17,8 @@
 <div class="container mt-4">
 <h2 class="my-4"><b>Translate</b></h2>
 
-@if(packageDB.length === 0){
+@if(packageDB.length === 0)
+{
     <h3>We have no packages at the moment</h3>
 }
 @else
@@ -56,6 +57,7 @@
 }
 
 
+
 <div class="form-group">
     <label for="targetLanguage"><b>Target Language</b></label>
     <select id="targetLanguage" name="targetLanguage" [(ngModel)]="targetLanguage" class="form-control" required>
@@ -66,7 +68,9 @@
     </select>
 </div>
 
-    <div *ngIf="translatedData.length > 0" class="mt-4">
+
+@if(fetchTrans){
+ @if(translatedData.length > 0){
     <table class="table table-striped">
       <thead>
         <tr>
@@ -76,16 +80,18 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Loop through translatedData array -->
-        <tr *ngFor="let translated of translatedData">
-          <td>{{ translated.original }}</td>
-          <td>{{ translated.targetLanguage }}</td>
-          <td>{{ translated.translation }}</td>
+        @for(translated of translatedData;track $index)
+        {
+          <tr>
+            <td>{{ translated.original }}</td>
+            <td>{{ translated.targetLanguage}}</td>
+            <td>{{ translated.translation }}</td>
         </tr>
+        }
       </tbody>
     </table>
-  </div>
-</div>
+ }
+}
 
 
 

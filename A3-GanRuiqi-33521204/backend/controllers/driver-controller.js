@@ -132,6 +132,9 @@ module.exports={
             if (!driver) {
                 return res.status(404).json({ message: "Driver not found" });
             }
+
+            // Set the driverId to null for all packages that had this driver
+            await Package.deleteMany({ driverId: driver._id });
     
             await incrementOperationCount('Delete');
     

@@ -19,12 +19,14 @@ export class ListDriversComponent {
   driverDB: Driver[] = [];
   packageDB: Package[] = [];
   packageData:any = []
+  driverId:any=""
   packagesFetched: boolean = false;
 
   constructor(private db: DatabaseService, private router: Router) {}
 
   onDeleteDriver(driverId: any) {
     this.db.deleteDriver(driverId).subscribe(() => {
+      this.driverId = null
       console.log('Driver deleted');
       this.ngOnInit();
       this.router.navigate(['list-drivers'])
@@ -33,6 +35,7 @@ export class ListDriversComponent {
 
     onFindPackage(driverId: any) {
       this.packagesFetched = true;
+      this.driverId = driverId
       this.db.findDriver(driverId).subscribe((data)=>{
         this.packageData= []
 

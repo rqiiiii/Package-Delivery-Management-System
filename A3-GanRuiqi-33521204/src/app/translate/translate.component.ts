@@ -21,6 +21,7 @@ export class TranslateComponent {
   data:any  = []
   translatedData: any =[]
   socket: any;
+  fetchTrans:boolean = false;
 
   constructor(private db: DatabaseService, private router: Router) {
     this.socket = io();  // Initialize socket connection
@@ -39,6 +40,7 @@ export class TranslateComponent {
     }
 
   onTranslate(description:any) {
+    this.fetchTrans = true;
     console.log(description,"des")
     console.log(this.targetLanguage)
     const data = {

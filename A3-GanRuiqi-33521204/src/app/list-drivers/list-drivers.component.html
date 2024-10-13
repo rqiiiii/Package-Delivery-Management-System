@@ -50,7 +50,7 @@
         <button (click)="onDeleteDriver(driver._id)" class="btn btn-danger">X</button>
     </td>
     <td>
-        <button (click)="onFindPackage(driver._id)" class="btn btn-danger">?</button>
+        <button (click)="onFindPackage(driver._id)" class="btn btn-success">?</button>
     </td>
 </tr>
 }
@@ -60,7 +60,7 @@
 
 
 
-@if(packagesFetched){
+@if(packagesFetched && driverId != null ){
   @if(packageData.length != 0){
     <div class="container mt-4">
         <h2 class="my-4"><b>Packages</b></h2>

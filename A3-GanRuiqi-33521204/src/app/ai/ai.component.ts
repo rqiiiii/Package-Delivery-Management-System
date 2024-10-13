@@ -17,6 +17,7 @@ export class AiComponent {
   driverData:any =[];
   socket:any;
   distance:any="";
+  destination:any =""
 
 
 
@@ -35,6 +36,7 @@ export class AiComponent {
     this.db.getPackages().subscribe();
     }
     onAi(destination:any){
+      this.destination = destination
       this.socket.emit("aiEvent",destination)
 
     }

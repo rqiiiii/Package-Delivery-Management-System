@@ -10,8 +10,8 @@ const statRouter = require('./routes/stat-routes');
 const authRouter = require('./routes/auth-routes')
 const { Server } = require('socket.io');
 
-// const url = "mongodb://localhost:27017/asgn2";
-const url = "mongodb://10.128.0.4:27017/asgn2";
+const url = "mongodb://localhost:27017/asgn3";
+// const url = "mongodb://10.128.0.4:27017/asgn3";
 
 
 // For Translate
@@ -34,24 +34,22 @@ const googleAI = new GoogleGenerativeAI(gemini_api_key);
     topK: 1,
     maxOutputTokens: 4096,
   };
-  const geminiModel = googleAI.getGenerativeModel({
-    model: "gemini-pro",
-    geminiConfig,
-  });
 
   async function getDistance(destination) {
+    const ques= "What is the approximate distance from "+ destination +" to Melbourne in kilometer?"
+    console.log(ques)
     const geminiModel = googleAI.getGenerativeModel({
       model: "gemini-pro",
       config: geminiConfig,
     });
   
     try {
-      const response = await geminiModel.generateContent("What is the approximate distance from "+ destination +" to Melbourne in kilometer?");
-  
+      const response = await geminiModel.generateContent(ques);
+      console.log(response)
+
       // Accessing the generated text from the response
       if (response.response && response.response.candidates && response.response.candidates.length > 0) {
         const generatedText = response.response.candidates[0].content.parts[0].text; // Correctly accessing the text
-        console.log(generatedText,"ahpeind")
         return generatedText
       } else {
         console.log("No generated candidates found.");
@@ -73,9 +71,6 @@ app.use('../public/output.mp3', (req, res, next) => {
   next();
 });
 
-// Serve static files
-
-// app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 
@@ -101,12 +96,10 @@ const server = app.listen(8080, () => {
 const io = new Server(server);
 
 io.on("connection", function(socket) {
-  console.log("New connection made");
+  console.log("Translate connection");
 
   socket.on('translateEvent', async (data) => {
-      console.log("Received event:", data);
 
-      // Extract description and target language from the event data
       const { description, targetLanguage } = data;
 
       try {
@@ -125,10 +118,9 @@ io.on("connection", function(socket) {
 });
 
 io.on("connection", function(socket) {
-  console.log("New connection made 2");
+  console.log("Text to speech connection made");
 
   socket.on('t2sEvent', async (data) => {
-      console.log("Received event:", data.text);
 
       // Extract description and target language from the event data
       const request = {
@@ -141,17 +133,15 @@ io.on("connection", function(socket) {
         // Perform the Text-to-Speech request
         const [response] = await client.synthesizeSpeech(request);
 
-        // Write the audio content to a file
-
         // const outputFile = 'output.mp3';
-        const outputFile = path.join(__dirname, '../public', 'output.mp3'); // Adjust path based on your directory structure
+        const outputFile = path.join(__dirname, '../public', 'output.mp3');
         fs.writeFile(outputFile, response.audioContent, 'binary', (err) => {
             if (err) {
                 console.error('ERROR:', err);
                 io.emit('t2sServerEvent', { error: 'Error writing audio file', details: err.message });
-                    return;  // Exit the function if there's an error
+                return;  
             }
-            // console.log('Audio content written to file:', outputFile);
+
             const outputFile1 = '/output.mp3' + `?t=${new Date().getTime()}`;
 
             io.emit('t2sServerEvent', { text: data.text,  file: outputFile1});
@@ -165,18 +155,19 @@ io.on("connection", function(socket) {
   });
 });
 
+
+
 io.on("connection", function(socket) {
-    console.log("New connection made3");
+    console.log("Ai connection made");
 
     socket.on('aiEvent', async (destination) => {
-        // Extract description and target language from the event data
-        const aDistance = await getDistance("sydney");
+        const aDistance = await getDistance(destination);
         io.emit('aiServerEvent', { distance: aDistance });
     });
   });
 
 
-// Set up your API routes
+// Set up API routes
 app.use("/33521204/ruiqi/api/v1/drivers", driverRouter);
 app.use("/33521204/ruiqi/api/v1/packages", packageRouter);
 app.use("/33521204/ruiqi/api/v1/stats", statRouter);

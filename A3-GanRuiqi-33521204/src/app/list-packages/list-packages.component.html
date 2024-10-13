@@ -17,7 +17,7 @@
 <div class="container mt-4">
 <h2 class="my-4"><b>Packages</b></h2>
 
-@if(packageDB.length === 0){
+@if(packageDB.length === 0 ){
 <h3>We have no packages at the moment</h3>
 }@else{
 
@@ -49,19 +49,12 @@
     <td>{{package.packageDescription}}</td>
     <td>{{package.packageCreatedAt}}</td>
     <td>{{ package.packageIsAllocated}}</td>
-    <td>  
-        @if(package.driverId){
-            {{package.driverId.driverId}}
-        }
-        @else{
-            Deleted
-        } 
-    </td>
+    <td>{{package.driverId.driverId}}</td>
     <td> 
         <button (click)="onDeletePackage(package._id)" class="btn btn-danger">X</button>
     </td>
     <td>
-        <button (click)="onFindDriver(package._id)" class="btn btn-danger">?</button>
+        <button (click)="onFindDriver(package._id)" class="btn btn-success">?</button>
     </td>
 </tr>
 }
@@ -70,10 +63,7 @@
 }
 
 
-
-
-
-@if(driverFetched){
+@if(driverFetched && packageId != null){
     @if(driverData.length != 0){
       <div class="container mt-4">
           <h2 class="my-4"><b>Drivers</b></h2>

@@ -1,19 +1,68 @@
 <div class="container mt-4">
+  <h2 class="my-4"><b>Drivers</b></h2>
+  
+  @if(driverDB.length === 0){
+  <h3>We have no drivers at the moment</h3>
+  }@else{
+  
+  <table class="table table-striped">
+  <thead>
+  <tr>
+      <th>Mongodb ID</th>
+      <th>Driver ID</th>
+      <th>Name</th>
+      <th>Department</th>
+      <th>Licence</th>
+      <th>Is Active</th>
+      <th>Created At</th>
+      <th>Update</th>
+
+  
+  </tr>
+  </thead>
+  <tbody>
+  @for(driver of driverDB;track $index){
+  <tr>
+      <td>{{driver._id}}</td>
+      <td>{{driver.driverId }}</td>
+      <td>{{driver.driverName | upper}}</td>
+      <td>{{driver.driverDepartment}}</td>
+      <td>{{driver.driverLicence}}</td>
+      <td>{{driver.driverIsActive}}</td>
+      <td>{{driver.driverCreatedAt}}</td>
+      <td>
+          <button (click)="onUpdate(driver._id)" class="btn btn-success">U</button>
+      </td>
+  </tr>
+  }
+  </tbody>
+  </table>
+  }
+
+
+  @if(fetchForm){
+<div class="container mt-4">
     <h2 class="my-4"><b>Update Driver</b></h2>
     
-    <label for="licence" class="mt-3">Driver ID:</label>
-    <input type="text" [(ngModel)]="driverId" id="licence" class="form-control" required>
+    <label for="driverId" class="mt-3">Driver ID:</label>
+    <input type="text" [(ngModel)]="driverId" id="driverId" class="form-control" required>
   
     <label for="licence" class="mt-3">New Licence:</label>
     <input type="text" [(ngModel)]="updatedDriver.licence" id="licence" class="form-control" required>
   
-    <label for="department" class="mt-3">New Department:</label>
-    <input type="text" [(ngModel)]="updatedDriver.department" id="department" class="form-control" required>
-  
-  
-    <button (click)="onUpdateDriver(driverId,updatedDriver)" class="btn btn-primary mt-2">Update Driver</button>
+    <div class="form-group">
+      <label for="driverDepartment">New Department:</label>
+      <select id="driverDepartment" name="driverDepartment" [(ngModel)]="updatedDriver.department" class="form-control" required>
+          <option value="Food">Food</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Electronic">Electronic</option>
+      </select>
   </div>
   
   
+    <button (click)="onUpdateDriver(updatedDriver)" class="btn btn-primary mt-2">Update Driver</button>
+  </div>
+  
+}
     
   

@@ -20,7 +20,6 @@ module.exports={
      */
     signup : async function(req,res){
         const { username, password, confirmPassword } = req.body;
-        console.log(req.body)
         const alphanumeric = /^[a-zA-Z0-9 ]+$/;
         try {
             // Check if the user already exists
@@ -64,7 +63,7 @@ module.exports={
      */
     login : async function(req,res){
         const { username, password } = req.body;
-        console.log(req.body,"from login front")
+        console.log(req.body)
 
     try {
         // Check if a user already exists
@@ -92,9 +91,6 @@ module.exports={
                 subject: userData.username  // Optional: subject identifier for the token
             }
         );
-        // // Set session to indicate user is logged in
-        // req.session.user = username;
-        console.log("user:", username)
 
         // Return success message
         return res.status(200).json({

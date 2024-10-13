@@ -37,7 +37,6 @@ const googleAI = new GoogleGenerativeAI(gemini_api_key);
 
   async function getDistance(destination) {
     const ques= "What is the approximate distance from "+ destination +" to Melbourne in kilometer?"
-    console.log(ques)
     const geminiModel = googleAI.getGenerativeModel({
       model: "gemini-pro",
       config: geminiConfig,
@@ -45,8 +44,6 @@ const googleAI = new GoogleGenerativeAI(gemini_api_key);
   
     try {
       const response = await geminiModel.generateContent(ques);
-      console.log(response)
-
       // Accessing the generated text from the response
       if (response.response && response.response.candidates && response.response.candidates.length > 0) {
         const generatedText = response.response.candidates[0].content.parts[0].text; // Correctly accessing the text

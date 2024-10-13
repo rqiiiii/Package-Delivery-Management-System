@@ -83,7 +83,7 @@ app.use(express.static('./dist/a3-gan-ruiqi-33521204/browser'));
 // Connect to the database
 async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/asgn3');
+        await mongoose.connect('mongodb://10.128.0.2:27017/asgn3');
         console.log('Connected to MongoDB');
     } catch (error) {
         console.error('MongoDB connection error:', error);

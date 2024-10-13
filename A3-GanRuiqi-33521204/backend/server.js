@@ -10,8 +10,8 @@ const statRouter = require('./routes/stat-routes');
 const authRouter = require('./routes/auth-routes')
 const { Server } = require('socket.io');
 
-const url = "mongodb://localhost:27017/asgn3";
-// const url = "mongodb://10.128.0.4:27017/asgn3";
+// const url = "mongodb://localhost:27017/asgn3";
+const url = "mongodb://10.128.0.4:27017/asgn3";
 
 
 // For Translate

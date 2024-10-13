@@ -88,8 +88,7 @@ module.exports={
             { username: userData.username },  // Payload
             SECRET_KEY,  // Private key to sign the token (defined as a constant or environment variable)
             {
-                algorithm: 'HS256',  // You can use 'HS256' unless you are using an RSA key
-                expiresIn: '1h',  // Token expiry
+                expiresIn: '24h',  // Token expiry
                 subject: userData.username  // Optional: subject identifier for the token
             }
         );

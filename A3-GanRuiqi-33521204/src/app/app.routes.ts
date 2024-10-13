@@ -36,6 +36,6 @@ export const routes: Routes = [
     {path:"text2speech",component:Text2speechComponent,canActivate:[authGuard]},
     {path:"ai",component:AiComponent,canActivate:[authGuard]},
     // { path: "", redirectTo: "/list-drivers", pathMatch: "full" },
-    {path:"invalid-data",component:InvalidDataComponent},
-    { path: '**', component: PageNotFoundComponent },
+    {path:"invalid-data",component:InvalidDataComponent,canActivate:[authGuard]},
+    { path: '**', component: PageNotFoundComponent,canActivate:[authGuard]},
 ];
